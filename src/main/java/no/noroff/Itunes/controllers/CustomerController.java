@@ -27,8 +27,8 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/api/customers", params = "name")
-    public String getCustomerByName(@RequestParam String name) {
-        return "Customer " + name;
+    public ArrayList<Customer> getCustomerByName(@RequestParam String name) {
+        return customerRepository.getCustomerByName(name);
     }
 
     @GetMapping(value = "/api/customers", params = {"limit", "offset"})

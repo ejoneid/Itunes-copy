@@ -4,7 +4,6 @@ import no.noroff.Itunes.model.Customer;
 import no.noroff.Itunes.model.Genre;
 import org.springframework.stereotype.Repository;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -85,9 +84,40 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return customer;
     }
 
-    @Override
-    public Customer getCustomerByName() {
-        return null;
+    public ArrayList<Customer> getCustomerByName(String name) {
+        ArrayList<Customer> customers = new ArrayList<>();
+        try {
+            conn = DriverManager.getConnection(URL);
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("SELECT CustomerId, FirstName, LastName, Country, PostalCode, Phone, Email FROM customer WHERE FirstName LIKE ? OR LastName LIKE ?");
+            preparedStatement.setString(1, "%" + name + "%");
+            preparedStatement.setString(2, "%" + name + "%");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                customers.add(new Customer(
+                        resultSet.getInt("CustomerId"),
+                        resultSet.getString("FirstName"),
+                        resultSet.getString("LastName"),
+                        resultSet.getString("Country"),
+                        resultSet.getInt("PostalCode"),
+                        resultSet.getString("Phone"),
+                        resultSet.getString("Email")
+                ));
+            }
+        } catch (SQLException error) {
+            System.out.println(error);
+        } finally {
+            try {
+                conn.close();
+            }
+            catch (Exception error){
+                System.out.println(error);
+            }
+        }
+
+        return customers;
     }
 
     @Override

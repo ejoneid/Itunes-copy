@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public interface CustomerRepository {
     ArrayList<Customer> getAllCustomers();
     Customer getCustomerByID(int customerId);
-    Customer getCustomerByName();
+    ArrayList<Customer> getCustomerByName(String name);
     ArrayList<Customer> getCustomerPage(int limit, int offset);
     void addCustomer(Customer customer);
     void changeCustomer(int id, int put);
