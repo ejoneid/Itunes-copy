@@ -2,10 +2,10 @@ package no.noroff.Itunes.controllers;
 
 import no.noroff.Itunes.model.Customer;
 import no.noroff.Itunes.repositories.CustomerRepository;
-import no.noroff.Itunes.repositories.CustomerRepositoryImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @RestController
 public class CustomerController {
@@ -47,9 +47,9 @@ public class CustomerController {
         System.out.println(id + " " + put);
     }
 
-    @GetMapping(value = "/api/customers", params = "country")
-    public String getCustomersByCountry(@RequestParam String country) {
-        return "Many customers from " + country + " here!";
+    @GetMapping(value = "/api/customers/countries")
+    public HashMap<String, Integer> getCustomerCountByCountry() {
+        return customerRepository.getCustomerCountFromCountry();
     }
 
     @GetMapping(value = "/api/customers/highSpenders")

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 @Repository
@@ -128,8 +129,28 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public ArrayList<Customer> getCustomersFromCountry() {
-        return null;
+    public HashMap<String, Integer> getCustomerCountFromCountry() {
+        HashMap<String, Integer> result = new HashMap<>();
+        try {
+            conn = DriverManager.getConnection(URL);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT Country, COUNT (*) AS Number FROM customer GROUP BY Country ORDER BY Number DESC;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                result.put(resultSet.getString("Country"), resultSet.getInt("Number"));
+            }
+        } catch (SQLException error) {
+            System.out.println(error);
+        } finally {
+            try {
+                conn.close();
+            }
+            catch (Exception error){
+                System.out.println(error);
+            }
+        }
+
+        return result;
     }
 
     @Override

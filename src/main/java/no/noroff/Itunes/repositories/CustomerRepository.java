@@ -4,6 +4,7 @@ import no.noroff.Itunes.model.Customer;
 import no.noroff.Itunes.model.Genre;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface CustomerRepository {
     ArrayList<Customer> getAllCustomers();
@@ -12,7 +13,7 @@ public interface CustomerRepository {
     ArrayList<Customer> getCustomerPage(int limit, int offset);
     boolean addCustomer(Customer customer);
     void changeCustomer(int id, int put);
-    ArrayList<Customer> getCustomersFromCountry();
+    HashMap<String, Integer> getCustomerCountFromCountry();
     ArrayList<Customer> getHighSpenders();
     ArrayList<Genre> getPopularGenre(int customerID);
 }
