@@ -42,8 +42,8 @@ public class CustomerController {
     }
 
     @PutMapping("/api/customers/{id}")
-    public void changeCustomer(@PathVariable int id, @RequestBody String put) {
-        System.out.println(id + " " + put);
+    public boolean changeCustomer(@PathVariable int id, @RequestBody Customer customer) {
+        return customerRepository.changeCustomer(id, customer);
     }
 
     @GetMapping(value = "/api/customers", params = "country")

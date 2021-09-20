@@ -38,8 +38,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         } finally {
             try {
                 conn.close();
-            }
-            catch (Exception error){
+            } catch (Exception error) {
                 System.out.println(error);
             }
         }
@@ -72,12 +71,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 conn.close();
-            }
-            catch (Exception error){
+            } catch (Exception error) {
                 System.out.println(error);
             }
         }
@@ -111,8 +108,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         } finally {
             try {
                 conn.close();
-            }
-            catch (Exception error){
+            } catch (Exception error) {
                 System.out.println(error);
             }
         }
@@ -131,9 +127,39 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public void changeCustomer(int id, int put) {
+    public boolean changeCustomer(int id, Customer customer) {
+        Boolean success = false;
+        try {
+            conn = DriverManager.getConnection(URL);
 
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("UPDATE customer SET CustomerId = ?, FirstName = ?, LastName = ?, Country = ?, PostalCode = ?, Phone = ?, Email = ? WHERE CustomerId = ?;");
+            preparedStatement.setInt(1, customer.getCustomerID());
+            preparedStatement.setString(2, customer.getFirstName());
+            preparedStatement.setString(3, customer.getLastName());
+            preparedStatement.setString(4, customer.getCountry());
+            preparedStatement.setInt(5, customer.getPostalCode());
+            preparedStatement.setString(6, customer.getPhone());
+            preparedStatement.setString(7, customer.getEmail());
+            preparedStatement.setInt(8, id);
+
+            // Execute Query
+            int result = preparedStatement.executeUpdate();
+            success = (result != 0);
+
+
+        } catch (Exception error) {
+            System.out.println(error);
+        } finally {
+            try {
+                conn.close();
+            } catch (Exception error) {
+                System.out.println(error);
+            }
+        }
+        return success;
     }
+
 
     @Override
     public ArrayList<Customer> getCustomersFromCountry() {

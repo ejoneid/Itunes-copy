@@ -11,7 +11,7 @@ public interface CustomerRepository {
     ArrayList<Customer> getCustomerByName(String name);
     ArrayList<Customer> getCustomerPage(int limit, int offset);
     void addCustomer(Customer customer);
-    void changeCustomer(int id, int put);
+    boolean changeCustomer(int id, Customer customer);
     ArrayList<Customer> getCustomersFromCountry();
     ArrayList<Customer> getHighSpenders();
     ArrayList<Genre> getPopularGenre(int customerID);
