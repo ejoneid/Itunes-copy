@@ -1,6 +1,7 @@
 package no.noroff.Itunes.controllers;
 
 import no.noroff.Itunes.model.Customer;
+import no.noroff.Itunes.model.Genre;
 import no.noroff.Itunes.repositories.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,7 +58,7 @@ public class CustomerController {
     }
 
     @GetMapping("/api/customers/{id}/popularGenre")
-    public String getPopularGenre(@PathVariable int id) {
-        return "Customer " + id;
+    public ArrayList<Genre> getPopularGenre(@PathVariable int id) {
+        return customerRepository.getPopularGenre(id);
     }
 }

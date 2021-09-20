@@ -172,7 +172,36 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public ArrayList<Genre> getPopularGenre(int customerID) {
-        return null;
+    public ArrayList<Genre> getPopularGenre(int id) {
+
+        ArrayList<Genre> genres = new ArrayList<>();
+        try {
+            conn = DriverManager.getConnection(URL);
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("SELECT GenreIds, GenreName, MAX(GenreCount) FROM (SELECT customer.CustomerId as ID, genre.GenreId as GenreIds, genre.Name as GenreName, COUNT(genre.GenreId) as GenreCount FROM customer inner join invoice on ID = invoice.CustomerId inner join invoiceLine on invoice.InvoiceId = invoiceLine.InvoiceId inner join track on invoiceLine.TrackId = track.TrackId inner join genre on track.GenreId = genre.GenreId where ID = ? GROUP BY genre.GenreId) a GROUP BY ID;");
+            preparedStatement.setInt(1, id);
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                genres.add(new Genre(
+                        resultSet.getInt("GenreIds"),
+                        resultSet.getString("GenreName")
+                ));
+            }
+        } catch (SQLException error) {
+            System.out.println(error);
+        } finally {
+            try {
+                conn.close();
+            } catch (Exception error) {
+                System.out.println(error);
+            }
+        }
+
+        return genres;
     }
-}
+
+    }
+
