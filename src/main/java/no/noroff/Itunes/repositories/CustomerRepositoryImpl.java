@@ -155,7 +155,35 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public ArrayList<Customer> getHighSpenders() {
-        return null;
+        ArrayList<Customer> customers = new ArrayList<>();
+        try {
+            conn = DriverManager.getConnection(URL);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT customer.CustomerId, customer.FirstName, customer.LastName, customer.Country, customer.PostalCode, customer.Phone, customer.Email, sum(invoice.Total) as sumTotal from Customer inner join invoice on customer.CustomerId = invoice.CustomerId GROUP BY customer.CustomerId ORDER BY sumTotal DESC;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                customers.add(new Customer(
+                        resultSet.getInt("CustomerId"),
+                        resultSet.getString("FirstName"),
+                        resultSet.getString("LastName"),
+                        resultSet.getString("Country"),
+                        resultSet.getInt("PostalCode"),
+                        resultSet.getString("Phone"),
+                        resultSet.getString("Email")
+                ));
+            }
+        } catch (SQLException error) {
+            System.out.println(error);
+        } finally {
+            try {
+                conn.close();
+            }
+            catch (Exception error){
+                System.out.println(error);
+            }
+        }
+
+        return customers;
     }
 
     @Override

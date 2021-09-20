@@ -53,8 +53,8 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/api/customers/highSpenders")
-    public String getHighSpenders() {
-        return "Many customers!";
+    public ArrayList<Customer> getHighSpenders() {
+        return customerRepository.getHighSpenders();
     }
 
     @GetMapping("/api/customers/{id}/popularGenre")
