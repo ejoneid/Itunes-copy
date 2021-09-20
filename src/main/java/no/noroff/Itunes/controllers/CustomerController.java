@@ -1,14 +1,25 @@
 package no.noroff.Itunes.controllers;
 
 import no.noroff.Itunes.model.Customer;
+import no.noroff.Itunes.repositories.CustomerRepository;
+import no.noroff.Itunes.repositories.CustomerRepositoryImpl;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 public class CustomerController {
 
+    private final CustomerRepository customerRepository;
+
+    public CustomerController(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
+
     @GetMapping("/api/customers")
-    public String getCustomers() {
-        return "Many customers here!";
+    public ArrayList<Customer> getCustomers() {
+        return customerRepository.getAllCustomers();
     }
 
     @GetMapping("/api/customers/{id}")
@@ -31,9 +42,9 @@ public class CustomerController {
         System.out.println(customer);
     }
 
-    @PatchMapping("/api/customers/{id}")
-    public void changeCustomer(@PathVariable int id, @RequestBody String patch) {
-        System.out.println(id + " " + patch);
+    @PutMapping("/api/customers/{id}")
+    public void changeCustomer(@PathVariable int id, @RequestBody String put) {
+        System.out.println(id + " " + put);
     }
 
     @GetMapping(value = "/api/customers", params = "country")
