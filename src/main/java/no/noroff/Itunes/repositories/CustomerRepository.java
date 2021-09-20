@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface CustomerRepository {
     ArrayList<Customer> getAllCustomers();
-    Customer getCustomerByID();
+    Customer getCustomerByID(int customerId);
     Customer getCustomerByName();
     ArrayList<Customer> getCustomerPage(int limit, int offset);
     void addCustomer(Customer customer);

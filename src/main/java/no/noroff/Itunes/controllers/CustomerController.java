@@ -2,7 +2,6 @@ package no.noroff.Itunes.controllers;
 
 import no.noroff.Itunes.model.Customer;
 import no.noroff.Itunes.repositories.CustomerRepository;
-import no.noroff.Itunes.repositories.CustomerRepositoryImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,8 +22,8 @@ public class CustomerController {
     }
 
     @GetMapping("/api/customers/{id}")
-    public String getCustomerByID(@PathVariable int id) {
-        return "Customer " + id;
+    public Customer getCustomerByID(@PathVariable int id) {
+        return customerRepository.getCustomerByID(id);
     }
 
     @GetMapping(value = "/api/customers", params = "name")

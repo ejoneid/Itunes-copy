@@ -4,6 +4,7 @@ import no.noroff.Itunes.model.Customer;
 import no.noroff.Itunes.model.Genre;
 import org.springframework.stereotype.Repository;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -48,8 +49,40 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public Customer getCustomerByID() {
-        return null;
+    public Customer getCustomerByID(int customerId) {
+        Customer customer = null;
+
+        try {
+            conn = DriverManager.getConnection(URL);
+
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("select CustomerId, FirstName, LastName, Country, PostalCode, Phone, Email from customer where CustomerId = ?");
+            preparedStatement.setInt(1, customerId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            customer = new Customer(
+                    resultSet.getInt("CustomerId"),
+                    resultSet.getString("FirstName"),
+                    resultSet.getString("LastName"),
+                    resultSet.getString("Country"),
+                    resultSet.getInt("PostalCode"),
+                    resultSet.getString("Phone"),
+                    resultSet.getString("Email")
+            );
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        finally {
+            try {
+                conn.close();
+            }
+            catch (Exception error){
+                System.out.println(error);
+            }
+        }
+        return customer;
     }
 
     @Override
