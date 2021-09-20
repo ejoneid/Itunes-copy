@@ -59,7 +59,37 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public ArrayList<Customer> getCustomerPage(int limit, int offset) {
-        return null;
+        ArrayList<Customer> customers = new ArrayList<>();
+        try {
+            conn = DriverManager.getConnection(URL);
+            PreparedStatement preparedStatement = conn.prepareStatement("select CustomerId, FirstName, LastName, Country, PostalCode, Phone, Email from customer LIMIT ? OFFSET ?;");
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                customers.add(new Customer(
+                        resultSet.getInt("CustomerId"),
+                        resultSet.getString("FirstName"),
+                        resultSet.getString("LastName"),
+                        resultSet.getString("Country"),
+                        resultSet.getInt("PostalCode"),
+                        resultSet.getString("Phone"),
+                        resultSet.getString("Email")
+                ));
+            }
+        } catch (SQLException error) {
+            System.out.println(error);
+        } finally {
+            try {
+                conn.close();
+            }
+            catch (Exception error){
+                System.out.println(error);
+            }
+        }
+
+        return customers;
     }
 
     @Override
@@ -71,7 +101,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             preparedStatement.setString(1, customer.getFirstName());
             preparedStatement.setString(2, customer.getLastName());
             preparedStatement.setString(3, customer.getCountry());
-            preparedStatement.setString(4, Integer.toString(customer.getPostalCode()));
+            preparedStatement.setInt(4, customer.getPostalCode());
             preparedStatement.setString(5, customer.getPhone());
             preparedStatement.setString(6, customer.getEmail());
 

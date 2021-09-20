@@ -33,8 +33,8 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/api/customers", params = {"limit", "offset"})
-    public String getCustomerPage(@RequestParam int limit, @RequestParam int offset) {
-        return "Customers " + limit + " " + offset;
+    public ArrayList<Customer> getCustomerPage(@RequestParam int limit, @RequestParam int offset) {
+        return customerRepository.getCustomerPage(limit, offset);
     }
 
     @PostMapping("/api/customers")
