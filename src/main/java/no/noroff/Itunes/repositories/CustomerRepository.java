@@ -10,7 +10,7 @@ public interface CustomerRepository {
     Customer getCustomerByID();
     Customer getCustomerByName();
     ArrayList<Customer> getCustomerPage(int limit, int offset);
-    void addCustomer(Customer customer);
+    boolean addCustomer(Customer customer);
     void changeCustomer(int id, int put);
     ArrayList<Customer> getCustomersFromCountry();
     ArrayList<Customer> getHighSpenders();

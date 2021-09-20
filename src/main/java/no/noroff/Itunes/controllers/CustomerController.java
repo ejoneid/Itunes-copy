@@ -38,8 +38,8 @@ public class CustomerController {
     }
 
     @PostMapping("/api/customers")
-    public void addCustomer(@RequestBody Customer customer) {
-        System.out.println(customer);
+    public boolean addCustomer(@RequestBody Customer customer) {
+        return customerRepository.addCustomer(customer);
     }
 
     @PutMapping("/api/customers/{id}")
