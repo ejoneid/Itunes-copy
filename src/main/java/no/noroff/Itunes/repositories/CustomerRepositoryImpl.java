@@ -1,6 +1,8 @@
 package no.noroff.Itunes.repositories;
 
 import no.noroff.Itunes.model.Customer;
+import no.noroff.Itunes.model.CustomerCountry;
+import no.noroff.Itunes.model.CustomerSpender;
 import no.noroff.Itunes.model.Genre;
 import org.springframework.stereotype.Repository;
 
@@ -218,15 +220,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
 
     @Override
-    public HashMap<String, Integer> getCustomerCountFromCountry() {
-        HashMap<String, Integer> result = new HashMap<>();
+    public ArrayList<CustomerCountry> getCustomerCountFromCountry() {
+        ArrayList<CustomerCountry> result = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(URL);
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT Country, COUNT (*) AS Number FROM customer GROUP BY Country ORDER BY Number DESC;");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                result.put(resultSet.getString("Country"), resultSet.getInt("Number"));
+                result.add(new CustomerCountry(resultSet.getString("Country"),
+                        resultSet.getInt("Number")));
             }
         } catch (SQLException error) {
             System.out.println(error);
@@ -243,22 +246,23 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public ArrayList<Customer> getHighSpenders() {
-        ArrayList<Customer> customers = new ArrayList<>();
+    public ArrayList<CustomerSpender> getHighSpenders() {
+        ArrayList<CustomerSpender> customerSpenders = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(URL);
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT customer.CustomerId, customer.FirstName, customer.LastName, customer.Country, customer.PostalCode, customer.Phone, customer.Email, sum(invoice.Total) as sumTotal from Customer inner join invoice on customer.CustomerId = invoice.CustomerId GROUP BY customer.CustomerId ORDER BY sumTotal DESC;");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                customers.add(new Customer(
+                customerSpenders.add(new CustomerSpender(new Customer(
                         resultSet.getInt("CustomerId"),
                         resultSet.getString("FirstName"),
                         resultSet.getString("LastName"),
                         resultSet.getString("Country"),
                         resultSet.getInt("PostalCode"),
                         resultSet.getString("Phone"),
-                        resultSet.getString("Email")
+                        resultSet.getString("Email")),
+                        resultSet.getDouble("sumTotal")
                 ));
             }
         } catch (SQLException error) {
@@ -272,7 +276,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             }
         }
 
-        return customers;
+        return customerSpenders;
     }
 
     @Override
