@@ -1,19 +1,11 @@
 package no.noroff.Itunes.model;
 
-public class Genre {
-    private int id;
+public class Artist {
     private String name;
+    private int id;
 
-    public Genre(int id, String name) {
-        this.id = id;
+    public Artist(int id, String name) {
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
         this.id = id;
     }
 
@@ -23,5 +15,13 @@ public class Genre {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
