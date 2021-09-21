@@ -17,7 +17,7 @@ public class MusicRepositoryImpl implements MusicRepository {
         ArrayList<Genre> genres = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(URL);
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT Genreid, Name FROM genres ORDER BY RAND() LIMIT ?;");
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT Genreid, Name FROM genre ORDER BY RANDOM() LIMIT ?;");
             preparedStatement.setInt(1, genresAmount);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -43,7 +43,7 @@ public class MusicRepositoryImpl implements MusicRepository {
         ArrayList<Artist> artists = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(URL);
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT Artistid, Name FROM artists ORDER BY RAND() LIMIT ?;");
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT Artistid, Name FROM artist ORDER BY RANDOM() LIMIT ?;");
             preparedStatement.setInt(1, artistAmount);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -69,7 +69,7 @@ public class MusicRepositoryImpl implements MusicRepository {
         ArrayList<Track> tracks = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(URL);
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT Trackid, Name FROM tracks ORDER BY RAND() LIMIT ?;");
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT Trackid, Name FROM track ORDER BY RANDOM() LIMIT ?;");
             preparedStatement.setInt(1, tracksAmount);
             ResultSet resultSet = preparedStatement.executeQuery();
 

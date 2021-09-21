@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>iTunes 2.0</title>
+</head>
+<body>
+    <main>
+        <section>
+            <input type="text" placeholder="Search for tracks...">
+        </section>
+        <section th:each="track:${tracks}">
+            <h2>5 Random Tracks</h2>
+            <ul><li th:text="${track.name}"></li></ul>
+        </section>
+        <section th:each="artist:${artists}">
+            <h2>5 Random Artists</h2>
+            <ul><li th:text="${artist.name}"></li></ul>
+        </section>
+        <section th:each="genre:${genres}">
+            <h2>5 Random Genres</h2>
+            <ul><li th:text="${genre.name}"></li></ul>
+        </section>
+    </main>
+</body>
