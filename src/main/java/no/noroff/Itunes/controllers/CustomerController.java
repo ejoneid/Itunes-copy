@@ -6,6 +6,7 @@ import no.noroff.Itunes.repositories.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @RestController
 public class CustomerController {
@@ -33,13 +34,13 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/api/customers", params = {"limit", "offset"})
-    public String getCustomerPage(@RequestParam int limit, @RequestParam int offset) {
-        return "Customers " + limit + " " + offset;
+    public ArrayList<Customer> getCustomerPage(@RequestParam int limit, @RequestParam int offset) {
+        return customerRepository.getCustomerPage(limit, offset);
     }
 
     @PostMapping("/api/customers")
-    public void addCustomer(@RequestBody Customer customer) {
-        System.out.println(customer);
+    public boolean addCustomer(@RequestBody Customer customer) {
+        return customerRepository.addCustomer(customer);
     }
 
     @PutMapping("/api/customers/{id}")
@@ -47,14 +48,14 @@ public class CustomerController {
         return customerRepository.changeCustomer(id, customer);
     }
 
-    @GetMapping(value = "/api/customers", params = "country")
-    public String getCustomersByCountry(@RequestParam String country) {
-        return "Many customers from " + country + " here!";
+    @GetMapping(value = "/api/customers/countries")
+    public HashMap<String, Integer> getCustomerCountByCountry() {
+        return customerRepository.getCustomerCountFromCountry();
     }
 
     @GetMapping(value = "/api/customers/highSpenders")
-    public String getHighSpenders() {
-        return "Many customers!";
+    public ArrayList<Customer> getHighSpenders() {
+        return customerRepository.getHighSpenders();
     }
 
     @GetMapping("/api/customers/{id}/popularGenre")
