@@ -1,6 +1,8 @@
 package no.noroff.Itunes.controllers;
 
 import no.noroff.Itunes.model.Customer;
+import no.noroff.Itunes.model.CustomerCountry;
+import no.noroff.Itunes.model.CustomerSpender;
 import no.noroff.Itunes.model.Genre;
 import no.noroff.Itunes.repositories.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
@@ -49,16 +51,16 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/api/customers/countries")
-    public HashMap<String, Integer> getCustomerCountByCountry() {
+    public ArrayList<CustomerCountry> getCustomerCountByCountry() {
         return customerRepository.getCustomerCountFromCountry();
     }
 
     @GetMapping(value = "/api/customers/highSpenders")
-    public ArrayList<Customer> getHighSpenders() {
+    public ArrayList<CustomerSpender> getHighSpenders() {
         return customerRepository.getHighSpenders();
     }
 
-    @GetMapping("/api/customers/{id}/popularGenre")
+    @GetMapping("/api/customers/{id}/popular/genre")
     public ArrayList<Genre> getPopularGenre(@PathVariable int id) {
         return customerRepository.getPopularGenre(id);
     }
