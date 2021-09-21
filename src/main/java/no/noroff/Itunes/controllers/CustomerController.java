@@ -1,6 +1,9 @@
 package no.noroff.Itunes.controllers;
 
 import no.noroff.Itunes.model.Customer;
+import no.noroff.Itunes.model.CustomerCountry;
+import no.noroff.Itunes.model.CustomerSpender;
+import no.noroff.Itunes.model.Genre;
 import no.noroff.Itunes.repositories.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,13 +26,13 @@ public class CustomerController {
     }
 
     @GetMapping("/api/customers/{id}")
-    public String getCustomerByID(@PathVariable int id) {
-        return "Customer " + id;
+    public Customer getCustomerByID(@PathVariable int id) {
+        return customerRepository.getCustomerByID(id);
     }
 
     @GetMapping(value = "/api/customers", params = "name")
-    public String getCustomerByName(@RequestParam String name) {
-        return "Customer " + name;
+    public ArrayList<Customer> getCustomerByName(@RequestParam String name) {
+        return customerRepository.getCustomerByName(name);
     }
 
     @GetMapping(value = "/api/customers", params = {"limit", "offset"})
@@ -43,22 +46,22 @@ public class CustomerController {
     }
 
     @PutMapping("/api/customers/{id}")
-    public void changeCustomer(@PathVariable int id, @RequestBody String put) {
-        System.out.println(id + " " + put);
+    public boolean changeCustomer(@PathVariable int id, @RequestBody Customer customer) {
+        return customerRepository.changeCustomer(id, customer);
     }
 
     @GetMapping(value = "/api/customers/countries")
-    public HashMap<String, Integer> getCustomerCountByCountry() {
+    public ArrayList<CustomerCountry> getCustomerCountByCountry() {
         return customerRepository.getCustomerCountFromCountry();
     }
 
     @GetMapping(value = "/api/customers/highSpenders")
-    public ArrayList<Customer> getHighSpenders() {
+    public ArrayList<CustomerSpender> getHighSpenders() {
         return customerRepository.getHighSpenders();
     }
 
-    @GetMapping("/api/customers/{id}/popularGenre")
-    public String getPopularGenre(@PathVariable int id) {
-        return "Customer " + id;
+    @GetMapping("/api/customers/{id}/popular/genre")
+    public ArrayList<Genre> getPopularGenre(@PathVariable int id) {
+        return customerRepository.getPopularGenre(id);
     }
 }
