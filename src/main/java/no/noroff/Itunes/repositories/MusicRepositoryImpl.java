@@ -1,15 +1,18 @@
 package no.noroff.Itunes.repositories;
 
 import no.noroff.Itunes.model.*;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class MusicRepositoryImpl {
+@Repository
+public class MusicRepositoryImpl implements MusicRepository {
 
     private String URL = ConnectionHelper.CONNECTION_URL;
     private Connection conn = null;
 
+    @Override
     public ArrayList<Genre> getRandomGenres(int genresAmount) {
         ArrayList<Genre> genres = new ArrayList<>();
         try {
@@ -35,6 +38,7 @@ public class MusicRepositoryImpl {
         return genres;
     }
 
+    @Override
     public ArrayList<Artist> getRandomArtist(int artistAmount) {
         ArrayList<Artist> artists = new ArrayList<>();
         try {
@@ -60,6 +64,7 @@ public class MusicRepositoryImpl {
         return artists;
     }
 
+    @Override
     public ArrayList<Track> getRandomTracks(int tracksAmount) {
         ArrayList<Track> tracks = new ArrayList<>();
         try {
@@ -70,6 +75,39 @@ public class MusicRepositoryImpl {
 
             while (resultSet.next()) {
                 tracks.add(new Track(resultSet.getInt("Trackid"), resultSet.getString("Name")));
+            }
+        } catch (SQLException error) {
+            System.out.println(error);
+        } finally {
+            try {
+                conn.close();
+            }
+            catch (Exception error){
+                System.out.println(error);
+            }
+        }
+
+        return tracks;
+    }
+
+    public ArrayList<Track> getTrackByName(String name) {
+        ArrayList<Track> tracks = new ArrayList<>();
+        try {
+            conn = DriverManager.getConnection(URL);
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("SELECT track.Trackid, track.Name, artist.Artistid artist.Name, album.Albumid, album.Title, genre.Genreid, genre.Name from track inner join album on track.AlbumId = album.AlbumId inner join genre on track.genreId = genre.genreId inner join artist on album.ArtistId = artist.ArtistId where track.Name LIKE ?;");
+            preparedStatement.setString(1, "%" + name + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                tracks.add(new Track(
+                        resultSet.getInt("Trackid"),
+                        resultSet.getString("track.Name"),
+                        new Artist(resultSet.getInt("Artistid"), resultSet.getString("artist.Name")),
+                        new Album(resultSet.getInt("Albumid"), resultSet.getString("Title")),
+                        new Genre(resultSet.getInt("Genreid"), resultSet.getString("Genre.Name"))
+                    )
+                );
             }
         } catch (SQLException error) {
             System.out.println(error);
