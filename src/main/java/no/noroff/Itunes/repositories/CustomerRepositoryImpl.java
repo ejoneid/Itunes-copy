@@ -8,15 +8,22 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-
+/**
+ * Customer Repository Implementation for all the needed methods to serve the endpoints in the CustomerController.
+ */
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
 
     private String URL = ConnectionHelper.CONNECTION_URL;
     private Connection conn = null;
 
+    /**
+     * Tries to execute the prepared SQL statement that gets all the customers from the database, creates customer
+     * objects and adds them to an ArrayList.
+     *
+     * @return ArrayList of Customer
+     */
     @Override
     public ArrayList<Customer> getAllCustomers() {
         ArrayList<Customer> customers = new ArrayList<>();
@@ -45,10 +52,14 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 System.out.println(error);
             }
         }
-
         return customers;
     }
 
+    /**
+     * Tries to execute the prepared SQL statement that gets the specific customer by ID.
+     * @param customerId = ID to look up in the database.
+     * @return A single customer with the corresponding ID.
+     */
     @Override
     public Customer getCustomerByID(int customerId) {
         Customer customer = null;
@@ -84,6 +95,13 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return customer;
     }
 
+    /**
+     * Tries to get all customers with a name matching the parameter name.
+     *
+     * @param name = A string to use for looking for a customer with a name like the parameter.
+     * @return All customers with a corresponding name, first or last name.
+     */
+    @Override
     public ArrayList<Customer> getCustomerByName(String name) {
         ArrayList<Customer> customers = new ArrayList<>();
         try {
@@ -115,10 +133,17 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 System.out.println(error);
             }
         }
-
         return customers;
     }
 
+    /**
+     * Tries to get all customers of a given interval, starting at the offset given and gets the number corresponding to
+     * the limit-parameter.
+     *
+     * @param limit = Number of customers to retrieve.
+     * @param offset = The starting index.
+     * @return ArrayList of Customers.
+     */
     @Override
     public ArrayList<Customer> getCustomerPage(int limit, int offset) {
         ArrayList<Customer> customers = new ArrayList<>();
@@ -145,15 +170,19 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         } finally {
             try {
                 conn.close();
-            }
-            catch (Exception error){
+            } catch (Exception error) {
                 System.out.println(error);
             }
         }
-
         return customers;
     }
 
+    /**
+     * Tries to add a new Customer to the database.
+     *
+     * @param customer = The customer object to insert into the database.
+     * @return boolean true or false.
+     */
     @Override
     public boolean addCustomer(Customer customer) {
         boolean success = false;
@@ -175,8 +204,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         } finally {
             try {
                 conn.close();
-            }
-            catch (Exception error){
+            } catch (Exception error) {
                 System.out.println(error);
             }
         }
@@ -184,6 +212,13 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return success;
     }
 
+    /**
+     * Tries to update a specific customer, targeted by their ID.
+     *
+     * @param id = ID of customer to update.
+     * @param customer = Customer object containing the updated values to insert into the database.
+     * @return boolean true or false.
+     */
     @Override
     public boolean changeCustomer(int id, Customer customer) {
         Boolean success = false;
@@ -219,6 +254,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
 
+    /**
+     * Gets all customers grouped by their country, ordered by the country and the country with the most customers first.
+     *
+     * @return ArrayList of CustomerCountry.
+     */
     @Override
     public ArrayList<CustomerCountry> getCustomerCountFromCountry() {
         ArrayList<CustomerCountry> result = new ArrayList<>();
@@ -236,8 +276,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         } finally {
             try {
                 conn.close();
-            }
-            catch (Exception error){
+            } catch (Exception error) {
                 System.out.println(error);
             }
         }
@@ -245,6 +284,12 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return result;
     }
 
+    /**
+     * Tries to get all the customers also found in the invoice table, with their total spending amount and the customer
+     * with the highest spending coming first.
+     *
+     * @return ArrayList of CustomerSpender
+     */
     @Override
     public ArrayList<CustomerSpender> getHighSpenders() {
         ArrayList<CustomerSpender> customerSpenders = new ArrayList<>();
@@ -270,8 +315,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         } finally {
             try {
                 conn.close();
-            }
-            catch (Exception error){
+            } catch (Exception error) {
                 System.out.println(error);
             }
         }
@@ -279,6 +323,12 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return customerSpenders;
     }
 
+    /**
+     * Tries to get the most popular genre for a specific customer, decided by the genre found most often in their invoices.
+     *
+     * @param id = ID of customer
+     * @return ArrauList of Genre.
+     */
     @Override
     public ArrayList<Genre> getPopularGenre(int id) {
 
@@ -307,9 +357,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 System.out.println(error);
             }
         }
-
         return genres;
     }
 
-    }
+}
 

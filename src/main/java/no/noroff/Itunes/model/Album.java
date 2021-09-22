@@ -1,5 +1,10 @@
 package no.noroff.Itunes.model;
 
+/**
+ * Model class for Album
+ * Contains the needed fields to cover an Album, here:
+ * ID and Title.
+ */
 public class Album {
     private int id;
     private String title;

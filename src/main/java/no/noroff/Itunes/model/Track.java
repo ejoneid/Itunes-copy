@@ -1,5 +1,10 @@
 package no.noroff.Itunes.model;
 
+/**
+ * Model class for Tracj
+ * Contains the needed fields to cover a Track, here:
+ * ID, Name, Artist, Album and Genre.
+ */
 public class Track {
     private int id;
     private String name;

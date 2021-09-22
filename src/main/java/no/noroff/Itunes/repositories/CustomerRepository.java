@@ -6,8 +6,10 @@ import no.noroff.Itunes.model.CustomerSpender;
 import no.noroff.Itunes.model.Genre;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+/**
+ * Interface for a CustomerRepository
+ */
 public interface CustomerRepository {
     ArrayList<Customer> getAllCustomers();
     Customer getCustomerByID(int customerId);

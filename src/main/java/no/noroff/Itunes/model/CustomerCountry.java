@@ -1,5 +1,10 @@
 package no.noroff.Itunes.model;
 
+/**
+ * Model class for CustomerCountry
+ * Contains the needed fields to cover a CustomerCountry, here:
+ * Country and Count.
+ */
 public class CustomerCountry {
     String country;
     int count;

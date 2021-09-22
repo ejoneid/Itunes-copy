@@ -1,9 +1,10 @@
 package no.noroff.Itunes.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+/**
+ * Model class for Customer
+ * Contains the needed fields to cover an Customer, here:
+ * ID, firstName, lastName, country, postalCode, phone and email.
+ */
 public class Customer {
     int customerID;
     String firstName;
