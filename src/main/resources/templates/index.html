@@ -9,17 +9,17 @@
         <section>
             <input type="text" placeholder="Search for tracks...">
         </section>
-        <section th:each="track:${tracks}">
+        <section>
             <h2>5 Random Tracks</h2>
-            <ul><li th:text="${track.name}"></li></ul>
+            <ul><li th:each="track:${tracks}" th:text="${track.name}"></li></ul>
         </section>
-        <section th:each="artist:${artists}">
+        <section>
             <h2>5 Random Artists</h2>
-            <ul><li th:text="${artist.name}"></li></ul>
+            <ul><li th:each="artist:${artists}" th:text="${artist.name}"></li></ul>
         </section>
-        <section th:each="genre:${genres}">
+        <section>
             <h2>5 Random Genres</h2>
-            <ul><li th:text="${genre.name}"></li></ul>
+            <ul><li th:each="genre:${genres}" th:text="${genre.name}"></li></ul>
         </section>
     </main>
 </body>
