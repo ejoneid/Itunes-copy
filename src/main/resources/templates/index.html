@@ -7,7 +7,10 @@
 <body>
     <main>
         <section>
-            <input type="text" placeholder="Search for tracks...">
+            <form method="get" action="/tracks">
+                <input type="text" name="trackName" placeholder="Search for tracks...">
+                <input type="submit" >
+            </form>
         </section>
         <section>
             <h2>5 Random Tracks</h2>

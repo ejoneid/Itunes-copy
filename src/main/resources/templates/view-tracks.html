@@ -7,13 +7,26 @@
 <body>
 <main>
     <section>
-        <input type="text" placeholder="Search for tracks...">
+        <form method="get">
+            <input type="text" name="trackName" placeholder="Search for tracks...">
+            <input type="submit" >
+        </form>
     </section>
-    <section th:each="track:${tracks}">
-        <h2>5 Random Tracks</h2>
-        <div>
-            <h3 th:text="${track.name}"></h3>
-        </div>
+    <section>
+        <table>
+            <thead>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th>Genre</th>
+            </thead>
+            <tr th:each="track:${tracks}">
+                <td th:text="${track.name}"></td>
+                <td th:text="${track.artist.name}"></td>
+                <td th:text="${track.album.title}"></td>
+                <td th:text="${track.genre.name}"></td>
+            </tr>
+        </table>
     </section>
 
 </main>

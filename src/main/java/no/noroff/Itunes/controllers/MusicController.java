@@ -12,7 +12,7 @@ public class MusicController {
 
     MusicRepositoryImpl musicRepository = new MusicRepositoryImpl();
 
-    @RequestMapping(value = "/")
+    @GetMapping(value = "/")
     public String index(Model model) {
         model.addAttribute("tracks", musicRepository.getRandomTracks(5));
         model.addAttribute("artists", musicRepository.getRandomArtist(5));
@@ -20,9 +20,9 @@ public class MusicController {
         return "index";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String getTrackByName(String name, Model model){
-        model.addAttribute("tracks", musicRepository.getTrackByName(name));
+    @GetMapping(value = "/tracks", params = "trackName")
+    public String getTrackByName(@RequestParam String trackName, Model model){
+        model.addAttribute("tracks", musicRepository.getTrackByName(trackName));
         return "view-tracks";
     }
 
