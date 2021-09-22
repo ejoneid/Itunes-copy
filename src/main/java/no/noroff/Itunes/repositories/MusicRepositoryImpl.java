@@ -6,12 +6,21 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Music Repository Implementation for all the needed methods to serve the endpoints in MusicController.
+ */
 @Repository
 public class MusicRepositoryImpl implements MusicRepository {
 
     private String URL = ConnectionHelper.CONNECTION_URL;
     private Connection conn = null;
 
+    /**
+     * Tries to retrieve a given amount random genres found in the genre table in the database.
+     *
+     * @param genresAmount = Amount of genres to get.
+     * @return ArrayList of Genres.
+     */
     @Override
     public ArrayList<Genre> getRandomGenres(int genresAmount) {
         ArrayList<Genre> genres = new ArrayList<>();
@@ -34,10 +43,15 @@ public class MusicRepositoryImpl implements MusicRepository {
                 System.out.println(error);
             }
         }
-
         return genres;
     }
 
+    /**
+     * Tries to retrieve a given amount random artists found in the artist table in the database
+     *
+     * @param artistAmount = Amount of artists to get.
+     * @return ArrayList of Artists.
+     */
     @Override
     public ArrayList<Artist> getRandomArtist(int artistAmount) {
         ArrayList<Artist> artists = new ArrayList<>();
@@ -64,6 +78,12 @@ public class MusicRepositoryImpl implements MusicRepository {
         return artists;
     }
 
+    /**
+     * Tries to retrieve a given amount of random Tracks found in the track table in the database.
+     *
+     * @param tracksAmount = Amount of tracks to get
+     * @return ArrayList of Tracks.
+     */
     @Override
     public ArrayList<Track> getRandomTracks(int tracksAmount) {
         ArrayList<Track> tracks = new ArrayList<>();
@@ -90,6 +110,13 @@ public class MusicRepositoryImpl implements MusicRepository {
         return tracks;
     }
 
+    /**
+     * Tries to get all tracks with a name corresponding to the parameter name, including the genre, artist and album.
+     *
+     * @param name = Name used to find the matching tracks.
+     * @return ArrayList of Tracks
+     */
+    @Override
     public ArrayList<Track> getTrackByName(String name) {
         ArrayList<Track> tracks = new ArrayList<>();
         try {
@@ -120,7 +147,6 @@ public class MusicRepositoryImpl implements MusicRepository {
             }
         }
 
-        System.out.println(tracks);
         return tracks;
     }
 }

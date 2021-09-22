@@ -1,5 +1,10 @@
 package no.noroff.Itunes.model;
 
+/**
+ * Model class for Artist
+ * Contains the needed fields to cover an Artist, here:
+ * ID and Name.
+ */
 public class Artist {
     private String name;
     private int id;

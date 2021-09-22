@@ -1,5 +1,10 @@
 package no.noroff.Itunes.model;
 
+/**
+ * Model class for CustomerSpender
+ * Contains the needed fields to cover a CustomerSpender, here:
+ * Customer and Spending.
+ */
 public class CustomerSpender {
     Customer customer;
     double spending;

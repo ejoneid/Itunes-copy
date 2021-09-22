@@ -1,5 +1,10 @@
 package no.noroff.Itunes.model;
 
+/**
+ * Model class for Genre
+ * Contains the needed fields to cover a Genre, here:
+ * ID and Name.
+ */
 public class Genre {
     private int id;
     private String name;
