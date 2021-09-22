@@ -20,6 +20,17 @@ public class Track {
         this.genre = genre;
     }
 
+    @Override
+    public String toString() {
+        return "Track{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", artist=" + artist +
+                ", album=" + album +
+                ", genre=" + genre +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
@@ -34,5 +45,29 @@ public class Track {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 }
