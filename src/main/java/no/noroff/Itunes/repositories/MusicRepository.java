@@ -10,4 +10,5 @@ public interface MusicRepository {
     ArrayList<Genre> getRandomGenres(int genresAmount);
     ArrayList<Artist> getRandomArtist(int artistAmount);
     ArrayList<Track> getRandomTracks(int tracksAmount);
+    ArrayList<Track> getTrackByName(String name);
 }
