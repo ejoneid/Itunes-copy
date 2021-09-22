@@ -5,6 +5,7 @@ import no.noroff.Itunes.model.CustomerCountry;
 import no.noroff.Itunes.model.CustomerSpender;
 import no.noroff.Itunes.model.Genre;
 import no.noroff.Itunes.repositories.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,11 +18,8 @@ import java.util.HashMap;
 @RestController
 public class CustomerController {
 
-    private final CustomerRepository customerRepository;
-
-    public CustomerController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
+    @Autowired
+    private CustomerRepository customerRepository;
 
     /**
      * GETs all customers.

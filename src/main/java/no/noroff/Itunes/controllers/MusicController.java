@@ -1,6 +1,8 @@
 package no.noroff.Itunes.controllers;
 
+import no.noroff.Itunes.repositories.MusicRepository;
 import no.noroff.Itunes.repositories.MusicRepositoryImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class MusicController {
 
-    MusicRepositoryImpl musicRepository = new MusicRepositoryImpl();
+    @Autowired
+    private MusicRepository musicRepository;
 
     /**
      * GET 5 random tracks, artists and genres.
