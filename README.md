@@ -19,7 +19,7 @@ will give you any track matching with your search string. The result data contai
 genre related to the track.
 
 There is also an API accessible through Postman that contains customer information. This will let you get information
-customers, add or update new customers and search. The full API and the available calls are present in **REFERENCE TO FILE**.
+customers, add or update new customers and search. The full API and the available calls are present in the root folder named _ItunesAPI.postmann_collection.json_.
 
 ## Structure
 
