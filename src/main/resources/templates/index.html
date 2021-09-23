@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}" ></script>
 <head>
     <meta charset="UTF-8">
     <title>iTunes 2.0</title>
 </head>
 <body>
-    <main>
+    <main class="container">
         <section>
             <form method="get" action="/tracks">
                 <input type="text" name="trackName" placeholder="Search for tracks...">
-                <input type="submit" >
+<!--                <input type="submit" class="btn btn-primary" >-->
             </form>
         </section>
         <section>
