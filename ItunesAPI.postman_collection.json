@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "6c057a49-1a38-481d-a81c-368ab6d59ae4",
+		"name": "ItunesAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllCustomers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/customers",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCustomerByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/customers/1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCustomerByName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/customers/?name=le",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "le"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCustomerPage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/customers/?limit=10&offset=50",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "offset",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addCustomer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Tester\",\n    \"lastName\": \"Testington2\",\n    \"country\": \"Norway\",\n    \"postalCode\": 1234,\n    \"phone\": \"123 45 678\",\n    \"email\": \"tester@testington.no\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/customers",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateCustomer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerID\": 1,\n    \"firstName\": \"Lewis\",\n    \"lastName\": \"Gonçalves\",\n    \"country\": \"Brazil\",\n    \"postalCode\": 12227,\n    \"phone\": \"+55 (12) 3923-5555\",\n    \"email\": \"luisg@embraer.com.br\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/customers/1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCustomersByCountry",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/customers/countries",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"countries"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "USA",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHighestSpenders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/customers/highSpenders",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"highSpenders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPopularGenreOfCustomer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/customers/3/popular/genre",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"3",
+						"popular",
+						"genre"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "https://itunes-v2.herokuapp.com"
+		}
+	]
+}
