@@ -1,5 +1,7 @@
 # Assignment 2 - iTunes 2.0
 
+Check out iTunes 2.0 [here](https://itunes-v2.herokuapp.com)
+
 This is a repository for the second backend assignment for the Experis Accelerated Learning course.
 This application makes use of Spring Boot, Sqlite, Thymeleaf and Docker. We have used a database given to us that holds
 information similar to a online music store, like iTunes. You can read about the Chinook database [here](https://www.sqlitetutorial.net/sqlite-sample-database/)
