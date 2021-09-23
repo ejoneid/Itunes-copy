@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}" ></script>
 <head>
     <meta charset="UTF-8">
     <title>iTunes 2.0</title>
 </head>
 <body>
-<main>
-    <section>
-        <form method="get">
-            <input type="text" name="trackName" placeholder="Search for tracks...">
-            <input type="submit" >
-        </form>
+<main class="container mt-4 mb-5">
+    <section class="row">
+        <div class="col">
+            <form method="get" action="/tracks">
+                <div class="input-group mb-3">
+                    <input type="text" name="trackName" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-primary" type="submit" id="button-addon2">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
     </section>
-    <section>
-        <table>
-            <thead>
+
+    <section class="row">
+        <div class="col">
+            <table class="table-hover">
+                <thead>
                 <th>Title</th>
                 <th>Artist</th>
                 <th>Album</th>
                 <th>Genre</th>
-            </thead>
-            <tr th:each="track:${tracks}">
-                <td th:text="${track.name}"></td>
-                <td th:text="${track.artist.name}"></td>
-                <td th:text="${track.album.title}"></td>
-                <td th:text="${track.genre.name}"></td>
-            </tr>
-        </table>
+                </thead>
+                <tr th:each="track:${tracks}">
+                    <td th:text="${track.name}"></td>
+                    <td th:text="${track.artist.name}"></td>
+                    <td th:text="${track.album.title}"></td>
+                    <td th:text="${track.genre.name}"></td>
+                </tr>
+            </table>
+        </div>
     </section>
-
 </main>
 </body>
