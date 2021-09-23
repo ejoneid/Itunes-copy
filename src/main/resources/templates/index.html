@@ -1,28 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}" ></script>
 <head>
     <meta charset="UTF-8">
     <title>iTunes 2.0</title>
 </head>
 <body>
-    <main>
-        <section>
-            <form method="get" action="/tracks">
-                <input type="text" name="trackName" placeholder="Search for tracks...">
-                <input type="submit" >
-            </form>
+    <main class="container mt-4 mb-5">
+        <section class="row">
+            <div class="col">
+                <form method="get" action="/tracks">
+                    <div class="input-group mb-3">
+                        <input type="text" name="trackName" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-primary" type="submit" id="button-addon2">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
         </section>
-        <section>
-            <h2>5 Random Tracks</h2>
-            <ul><li th:each="track:${tracks}" th:text="${track.name}"></li></ul>
-        </section>
-        <section>
-            <h2>5 Random Artists</h2>
-            <ul><li th:each="artist:${artists}" th:text="${artist.name}"></li></ul>
-        </section>
-        <section>
-            <h2>5 Random Genres</h2>
-            <ul><li th:each="genre:${genres}" th:text="${genre.name}"></li></ul>
+
+        <section class="row">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        5 Random Tracks
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li th:each="track:${tracks}" th:text="${track.name}" class="list-group-item"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        5 Random Artists
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li th:each="artist:${artists}" th:text="${artist.name}" class="list-group-item"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        5 Random Genres
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li th:each="genre:${genres}" th:text="${genre.name}" class="list-group-item"></li>
+                    </ul>
+                </div>
+            </div>
         </section>
     </main>
 </body>
