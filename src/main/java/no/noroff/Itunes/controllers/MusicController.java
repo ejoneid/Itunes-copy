@@ -1,7 +1,6 @@
 package no.noroff.Itunes.controllers;
 
 import no.noroff.Itunes.repositories.MusicRepository;
-import no.noroff.Itunes.repositories.MusicRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
